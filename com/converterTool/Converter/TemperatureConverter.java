@@ -1,6 +1,6 @@
-package Converter;
+package com.converterTool.Converter;
 
-import Units.NumberWithUnits;
+import com.converterTool.Units.NumberWithUnits;
 
 public class TemperatureConverter implements ConverterInterface{
     @Override

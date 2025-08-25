@@ -1,4 +1,4 @@
-package Units;
+package com.converterTool.Units;
 
 public class Distance extends NumberWithUnits{
 

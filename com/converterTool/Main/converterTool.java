@@ -1,4 +1,6 @@
-import Units.NumberWithUnits;
+package com.converterTool.Main;
+
+import com.converterTool.Units.NumberWithUnits;
 
 import java.util.Scanner;
 
