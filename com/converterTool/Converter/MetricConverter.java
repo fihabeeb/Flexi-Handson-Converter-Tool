@@ -91,7 +91,7 @@ public class MetricConverter implements ConverterInterface{
         return switch(_targetIndex)
         {
             case 5 -> _inputWeight;
-            case 6 -> _inputWeight * 1000;
+            case 6 -> _inputWeight / 1000;
             default -> 0;
         };
     }
@@ -100,7 +100,7 @@ public class MetricConverter implements ConverterInterface{
     {
         return switch(_targetIndex)
         {
-            case 5 -> _inputWeight / 1000;
+            case 5 -> _inputWeight * 1000;
             case 6 -> _inputWeight;
             default -> 0;
         };
