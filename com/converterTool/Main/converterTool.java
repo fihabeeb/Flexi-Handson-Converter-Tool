@@ -103,31 +103,27 @@ public class converterTool {
             System.out.println("Input: ");
             String inputValue = inputScanner.nextLine();
 
-            if (inputValue.equals("help"))
-            {
-                help();
-                continue;
+            switch (inputValue) {
+                case "help" -> {
+                    help();
+                    continue;
+                }
+                case "history" -> {
+                    ReadAndWrite.readHistoryFile();
+                    continue;
+                }
+                case "delete" -> {
+                    System.out.println("History deleted");
+                    ReadAndWrite.deleteHistory();
+                    continue;
+                }
+                case "exit" -> {
+                    System.out.println("Exiting...");
+                    programRun = false;
+                    continue;
+                }
             }
 
-            if (inputValue.equals("history"))
-            {
-                ReadAndWrite.readHistoryFile();
-                continue;
-            }
-
-            if (inputValue.equals("delete"))
-            {
-                System.out.println("History deleted");
-                ReadAndWrite.deleteHistory();
-                continue;
-            }
-
-            if (inputValue.equals("exit"))
-            {
-                System.out.println("Exiting...");
-                programRun = false;
-                continue;
-            }
             saveFileString.append(inputValue);
             saveFileString.append(" to ");
             MetricConverter metricConverter = new MetricConverter();
