@@ -8,9 +8,9 @@ public class TemperatureConverter implements ConverterInterface{
         int inputIndex = unitIndexer(_inputValue.getUnitSign());
         int targetIndex = unitIndexer(_targetUnit);
         return switch (inputIndex) {
-            case 1 -> String.valueOf(convertFromKelvin(_inputValue.getValue(), targetIndex));
-            case 2 -> String.valueOf(convertFromCelsius(_inputValue.getValue(), targetIndex));
-            case 3 -> String.valueOf(convertFromFahrenheit(_inputValue.getValue(), targetIndex));
+            case 1 -> String.valueOf(convertFromKelvin(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
+            case 2 -> String.valueOf(convertFromCelsius(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
+            case 3 -> String.valueOf(convertFromFahrenheit(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
             default -> "Error";
         };
     }

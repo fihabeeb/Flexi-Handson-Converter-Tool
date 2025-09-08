@@ -15,12 +15,12 @@ public class MetricConverter implements ConverterInterface{
             }
         }
         return switch (inputIndex) {
-            case 1 -> String.valueOf(convertFromMillimeter(_inputValue.getValue(), targetIndex));
-            case 2 -> String.valueOf(convertFromCentimeter(_inputValue.getValue(), targetIndex));
-            case 3 -> String.valueOf(convertFromMeter(_inputValue.getValue(), targetIndex));
-            case 4 -> String.valueOf(convertFromKilometer(_inputValue.getValue(), targetIndex));
-            case 5 -> String.valueOf(convertFromGram(_inputValue.getValue(), targetIndex));
-            case 6 -> String.valueOf(convertFromKilogram(_inputValue.getValue(), targetIndex));
+            case 1 -> String.valueOf(convertFromMillimeter(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
+            case 2 -> String.valueOf(convertFromCentimeter(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
+            case 3 -> String.valueOf(convertFromMeter(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
+            case 4 -> String.valueOf(convertFromKilometer(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
+            case 5 -> String.valueOf(convertFromGram(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
+            case 6 -> String.valueOf(convertFromKilogram(_inputValue.getValue(), targetIndex)) + " " + _targetUnit;
             default -> "Error";
         };
     }

@@ -2,23 +2,54 @@ package com.converterTool.Main;
 
 import com.converterTool.Converter.MetricConverter;
 import com.converterTool.Converter.TemperatureConverter;
+import com.converterTool.SaveFunctions.ReadAndWrite;
 import com.converterTool.Units.Distance;
 import com.converterTool.Units.NumberWithUnits;
 import com.converterTool.Units.Temperature;
 import com.converterTool.Units.Weight;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import java.util.Scanner;
 
 
 public class converterTool {
+    public static String getCurrentTime() {
+        // Get the current date and time
+        LocalDateTime now = LocalDateTime.now();
+
+        // Create a formatter with the desired pattern.
+        // Using Locale.ENGLISH ensures the month is "Sep" regardless of the system's language.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yy h:mm a", Locale.ENGLISH);
+
+        // Apply the formatter to the current date-time object
+        String formattedDateTime = now.format(formatter);
+
+        return (formattedDateTime + ": ");
+    }
     static class unitDeterminer {
         public static boolean isNumeric(String str) {
+            boolean isValid = true;
+            try {
+                Double.parseDouble(str);
+                return true;
+            } catch (NumberFormatException e) {
+                //return false;
+            }
             try {
                 Integer.parseInt(str);
                 return true;
             } catch (NumberFormatException e) {
-                return false;
+                //return false;
             }
+            try {
+                Float.parseFloat(str);
+                return true;
+            } catch (NumberFormatException e) {
+                //return false;
+            }
+            return false;
         }
 
         int isUnitValid(String _userInputString)
@@ -36,6 +67,7 @@ public class converterTool {
             unitSign = splits[1].toLowerCase();
             if (!isNumeric(splits[0]))
             {
+                System.out.println(splits[0]);
                 return 998;
             }
             return switch (unitSign) {
@@ -51,6 +83,10 @@ public class converterTool {
         System.out.println("Ensure a single space between the value and its unit");
         System.out.println("Units: c, f, k, m, km");
         System.out.println("cm, mm, g, kg");
+        System.out.println("Type: \"help\" to get help");
+        System.out.println("Type: \"history\" to get history");
+        System.out.println("Type: \"delete\" to erase history");
+        System.out.println("Type: \"exit\" to exit");
     }
     public static void main(String[] args)
     {
@@ -60,10 +96,40 @@ public class converterTool {
         String[] unitsTemperature = {"c", "f", "k"};
         String[] unitsMetric = {"m", "km", "cm", "mm", "g", "kg"};
         unitDeterminer unitHelper = new unitDeterminer();
+        StringBuilder saveFileString = new StringBuilder();
+        saveFileString.append(getCurrentTime());
         while(programRun)
         {
-            System.out.println("Value to convert: ");
+            System.out.println("Input: ");
             String inputValue = inputScanner.nextLine();
+
+            if (inputValue.equals("help"))
+            {
+                help();
+                continue;
+            }
+
+            if (inputValue.equals("history"))
+            {
+                ReadAndWrite.readHistoryFile();
+                continue;
+            }
+
+            if (inputValue.equals("delete"))
+            {
+                System.out.println("History deleted");
+                ReadAndWrite.deleteHistory();
+                continue;
+            }
+
+            if (inputValue.equals("exit"))
+            {
+                System.out.println("Exiting...");
+                programRun = false;
+                continue;
+            }
+            saveFileString.append(inputValue);
+            saveFileString.append(" to ");
             MetricConverter metricConverter = new MetricConverter();
             TemperatureConverter temperatureConverter = new TemperatureConverter();
             boolean foundValueA = false;
@@ -114,7 +180,9 @@ public class converterTool {
                         System.out.println("Please select a valid converting unit");
                     }
                     else {
-                        System.out.println(temperatureConverter.convertValues(inputObject, convertValue));
+                        String output = temperatureConverter.convertValues(inputObject, convertValue);
+                        saveFileString.append(output);
+                        System.out.println(output);
                         isValidSecondaryInput = false;
                     }
                 } else if (unitHelperOutput == 2) {
@@ -122,7 +190,9 @@ public class converterTool {
                         System.out.println("Please select a valid converting unit");
                     }
                     else {
-                        System.out.println(metricConverter.convertValues(inputObject, convertValue));
+                        String output = metricConverter.convertValues(inputObject, convertValue);
+                        saveFileString.append(output);
+                        System.out.println(output);
                         isValidSecondaryInput = false;
                     }
                 } else if (unitHelperOutput == 3) {
@@ -130,15 +200,16 @@ public class converterTool {
                         System.out.println("Please select a valid converting unit");
                     }
                     else {
-                        System.out.println(metricConverter.convertValues(inputObject, convertValue));
+                        String output = metricConverter.convertValues(inputObject, convertValue);
+                        saveFileString.append(output);
+                        System.out.println(output);
                         isValidSecondaryInput = false;
                     }
                 }
             }
-
-
-
-            programRun = false;
+            ReadAndWrite.appendToHistory(saveFileString.toString());
+            saveFileString.setLength(0);
+            saveFileString.append(getCurrentTime());
         }
     }
 }
