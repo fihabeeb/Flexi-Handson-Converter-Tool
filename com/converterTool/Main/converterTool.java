@@ -30,7 +30,6 @@ public class converterTool {
     }
     static class unitDeterminer {
         public static boolean isNumeric(String str) {
-            boolean isValid = true;
             try {
                 Double.parseDouble(str);
                 return true;
@@ -93,8 +92,6 @@ public class converterTool {
         Scanner inputScanner = new Scanner(System.in);
         help();
         boolean programRun = true;
-        String[] unitsTemperature = {"c", "f", "k"};
-        String[] unitsMetric = {"m", "km", "cm", "mm", "g", "kg"};
         unitDeterminer unitHelper = new unitDeterminer();
         StringBuilder saveFileString = new StringBuilder();
         saveFileString.append(getCurrentTime());
@@ -128,7 +125,6 @@ public class converterTool {
             saveFileString.append(" to ");
             MetricConverter metricConverter = new MetricConverter();
             TemperatureConverter temperatureConverter = new TemperatureConverter();
-            boolean foundValueA = false;
             int unitHelperOutput = unitHelper.isUnitValid(inputValue);
             if (unitHelperOutput == 999)
             {
@@ -191,7 +187,7 @@ public class converterTool {
                         System.out.println(output);
                         isValidSecondaryInput = false;
                     }
-                } else if (unitHelperOutput == 3) {
+                } else {
                     if (!convertValue.equals("g") && !convertValue.equals("kg")) {
                         System.out.println("Please select a valid converting unit");
                     }
