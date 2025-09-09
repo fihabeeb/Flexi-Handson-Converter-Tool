@@ -71,15 +71,15 @@ public class converterTool {
             }
             return switch (unitSign) {
                 case "c", "f", "k" -> 1;
-                case "m", "km", "cm", "mm" -> 2;
-                case "g", "kg" -> 3;
+                case "m", "km", "cm", "mm", "mi" -> 2;
+                case "g", "kg", "lbs" -> 3;
                 default -> 999;
             };
         }
     }
     public static void help()
     {
-        System.out.println("Ensure a single space between the value and its unit");
+        //System.out.println("Ensure a single space between the value and its unit");
         System.out.println("Units: c, f, k, m, km");
         System.out.println("cm, mm, g, kg");
         System.out.println("Type: \"help\" to get help");
@@ -97,10 +97,10 @@ public class converterTool {
         saveFileString.append(getCurrentTime());
         while(programRun)
         {
-            System.out.println("Input: ");
+            System.out.println("Input (ensure a space between the value and its unit \"5 kg\"): ");
             String inputValue = inputScanner.nextLine();
 
-            switch (inputValue) {
+            switch (inputValue.toLowerCase()) {
                 case "help" -> {
                     help();
                     continue;
@@ -178,7 +178,7 @@ public class converterTool {
                         isValidSecondaryInput = false;
                     }
                 } else if (unitHelperOutput == 2) {
-                    if (!convertValue.equals("m") && !convertValue.equals("km") && !convertValue.equals("cm") && !convertValue.equals("mm")) {
+                    if (!convertValue.equals("m") && !convertValue.equals("km") && !convertValue.equals("cm") && !convertValue.equals("mm") && !convertValue.equals("mi")) {
                         System.out.println("Please select a valid converting unit");
                     }
                     else {
@@ -188,7 +188,7 @@ public class converterTool {
                         isValidSecondaryInput = false;
                     }
                 } else {
-                    if (!convertValue.equals("g") && !convertValue.equals("kg")) {
+                    if (!convertValue.equals("g") && !convertValue.equals("kg") && !convertValue.equals("lbs")) {
                         System.out.println("Please select a valid converting unit");
                     }
                     else {
