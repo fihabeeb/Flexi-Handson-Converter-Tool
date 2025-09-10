@@ -80,8 +80,8 @@ public class converterTool {
     public static void help()
     {
         //System.out.println("Ensure a single space between the value and its unit");
-        System.out.println("Units: c, f, k, m, km");
-        System.out.println("cm, mm, g, kg");
+        System.out.println("Units: c, f, k, m, km, mi");
+        System.out.println("cm, mm, g, kg, lbs");
         System.out.println("Type: \"help\" to get help");
         System.out.println("Type: \"history\" to get history");
         System.out.println("Type: \"delete\" to erase history");

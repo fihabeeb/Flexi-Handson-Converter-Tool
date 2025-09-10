@@ -10,12 +10,8 @@ public class ReadAndWrite {
     public static void createNewFile(String _output)
     {
         String filePath = "history/output.txt";
-
         try {
-            // This single line creates the file (if it doesn't exist) and writes the content.
-            // If the file does exist, it will be overwritten.
             Files.writeString(Paths.get(filePath), _output);
-            //System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.err.println("An error occurred while writing to the file: " + e.getMessage());
         }
@@ -23,7 +19,7 @@ public class ReadAndWrite {
 
     public static void readHistoryFile()
     {
-        Path filePath = Paths.get("history/output.txt"); // Assumes the file from the last example exists
+        Path filePath = Paths.get("history/output.txt");
 
         try {
             String content = Files.readString(filePath);
@@ -39,22 +35,19 @@ public class ReadAndWrite {
         Path filePath = Paths.get("history/output.txt");
 
         try {
-            // The StandardOpenOption.APPEND flag tells the method to add to the end of the file
             String outputString = "\n" + _output;
             Files.writeString(filePath, outputString, StandardOpenOption.APPEND);
             //System.out.println("Successfully appended to the file.");
         } catch (IOException e) {
             createNewFile(_output);
-            //System.err.println("An error occurred while appending to the file: " + e.getMessage());
         }
     }
 
     public static void deleteHistory()
     {
-        Path filePath = Paths.get("history/output.txt"); // The file you want to empty
+        Path filePath = Paths.get("history/output.txt");
 
         try {
-            // Writing an empty string overwrites and empties the file.
             Files.writeString(filePath, "");
             System.out.println("Successfully emptied the file.");
         } catch (IOException e) {
